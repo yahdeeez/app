@@ -55,6 +55,7 @@ export default function ParentDashboard() {
   const [selectedTeen, setSelectedTeen] = useState<Teen | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [currentView, setCurrentView] = useState<'dashboard' | 'location' | 'apps' | 'alerts'>('dashboard');
   
   // Login form state
   const [email, setEmail] = useState('demo@parent.com');
