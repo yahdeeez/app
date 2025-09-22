@@ -34,14 +34,12 @@ jobs:
         working-directory: frontend
         run: npx expo install
 
-      #  IMPORTANT: build with base-url matching your repo subpath
       - name: Build static web
         working-directory: frontend
         env:
-          EXPO_PUBLIC_BASE_URL: "/app/"          # < change if your repo name differs
-        run: npx expo export -p web --output-dir dist --base-url "/app/"
+          EXPO_PUBLIC_BASE_URL: "/app"     # keep in sync with app.json
+        run: npx expo export -p web --output-dir dist
 
-      # GitHub Pages SPA fallback
       - name: SPA fallback (404 -> index)
         working-directory: frontend
         run: cp dist/index.html dist/404.html
