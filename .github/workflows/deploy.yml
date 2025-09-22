@@ -25,21 +25,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
 
       - name: Install deps
         working-directory: frontend
-        run: npm ci
+        run: npm install
 
       - name: Pin Expo deps
         working-directory: frontend
         run: npx expo install
 
+      #  IMPORTANT: build with base-url matching your repo subpath
       - name: Build static web
         working-directory: frontend
-        run: npx expo export -p web --output-dir dist
+        env:
+          EXPO_PUBLIC_BASE_URL: "/app/"          # < change if your repo name differs
+        run: npx expo export -p web --output-dir dist --base-url "/app/"
 
+      # GitHub Pages SPA fallback
       - name: SPA fallback (404 -> index)
         working-directory: frontend
         run: cp dist/index.html dist/404.html
